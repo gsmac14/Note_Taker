@@ -50,19 +50,15 @@ app.post("/api/notes", function(req, res) {
     return res.json(data);
   });
 });
-  // Using a RegEx Pattern to remove spaces from newCharacter
-  // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-//   newCharacter.routeName = newCharacter.name.replace(/\s+/g, "").toLowerCase();
 
-//   console.log(newCharacter);
-
-//   characters.push(newCharacter);
-
-//   db.json(newCharacter);
-// });
-
-// Starts the server to begin listening
-// =============================================================
+app.delete("/api/notes/:id", function(req, res) {
+  notes.splice(req.params.id, 1);
+  fs.writeFile("./db/db.json", JSON.stringify(notes), function(err) {
+    if (err) throw err;
+    return;
+  });
+  res.end();
+});
 
 app.listen(PORT, function() {
   console.log("App listening on PORT " + PORT);
